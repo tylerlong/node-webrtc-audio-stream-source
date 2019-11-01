@@ -4,11 +4,22 @@
 
 This library gives you a [RTCAudioSource](https://github.com/node-webrtc/node-webrtc/blob/864bc136e8376c2e47ad5b206aa8c8568256a6b3/docs/nonstandard-apis.md#rtcaudiosource) object which streams audio data from microphone.
 
+
+## Test to speech
+
+### macOS
+
+```
+say -o test.tiff --data-format=BEI16@48000  hello world
+```
+
+
 ## Install
 
 ```
 yarn add node-webrtc-audio-file-source wrtc
 ```
+
 
 ## Usage
 
@@ -28,3 +39,4 @@ rtcAudioSink.ondata = data => {
 rtcAudioSource.start()
 setTimeout(() => rtcAudioSource.stop(), 10000) // stop after 10 seconds
 ```
+u
