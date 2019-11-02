@@ -1,4 +1,4 @@
-# node-webrtc-audio-file-source
+# node-webrtc-audio-stream-source
 
 [node-webrtc](https://github.com/node-webrtc/node-webrtc) started supporting programmatic audio since version [0.3.6](https://github.com/node-webrtc/node-webrtc/releases/tag/v0.3.6). But it doesn't cover how to get audio stream from microphone.
 
@@ -17,7 +17,7 @@ say -o test.tiff --data-format=BEI16@48000  hello world
 ## Install
 
 ```
-yarn add node-webrtc-audio-file-source wrtc
+yarn add node-webrtc-audio-stream-source wrtc
 ```
 
 
@@ -25,7 +25,7 @@ yarn add node-webrtc-audio-file-source wrtc
 
 ```js
 import { nonstandard } from 'wrtc'
-import RTCAudioSource from 'node-webrtc-audio-file-source'
+import RTCAudioSource from 'node-webrtc-audio-stream-source'
 
 const { RTCAudioSink } = nonstandard
 
