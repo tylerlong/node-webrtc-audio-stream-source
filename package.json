@@ -1,6 +1,7 @@
 {
   "name": "node-webrtc-audio-stream-source",
-  "version": "0.1.0",
+  "license": "MIT",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "scripts": {
     "release": "babel src --out-dir dist --source-maps",

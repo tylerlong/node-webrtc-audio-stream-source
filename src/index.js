@@ -4,9 +4,10 @@ const { RTCAudioSource } = nonstandard
 
 class NodeWebRtcAudioStreamSource extends RTCAudioSource {
   addStream (readable, bitsPerSample, sampleRate, channelCount) {
+    let cache = Buffer.alloc(0)
     let streamEnd = false
     readable.on('data', buffer => {
-      this.cache = Buffer.concat([this.cache, buffer])
+      cache = Buffer.concat([cache, buffer])
     })
 
     readable.on('end', () => {
@@ -14,9 +15,9 @@ class NodeWebRtcAudioStreamSource extends RTCAudioSource {
     })
 
     const processData = () => {
-      if (this.cache.length > 960) {
-        const buffer = this.cache.slice(0, 960)
-        this.cache = this.cache.slice(960)
+      if (cache.length > 960) {
+        const buffer = cache.slice(0, 960)
+        cache = cache.slice(960)
         const samples = new Int16Array(new Uint8Array(buffer).buffer)
         this.onData({
           bitsPerSample: 16,
@@ -27,7 +28,7 @@ class NodeWebRtcAudioStreamSource extends RTCAudioSource {
           samples
         })
       }
-      if (!streamEnd || this.cache.length > 0) {
+      if (!streamEnd || cache.length > 0) {
         setTimeout(() => processData(), 10)
       }
     }
