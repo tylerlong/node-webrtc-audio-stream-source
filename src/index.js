@@ -15,7 +15,7 @@ class NodeWebRtcAudioStreamSource extends RTCAudioSource {
     })
 
     const processData = () => {
-      if (cache.length > 960) {
+      if (cache.length >= 960) {
         const buffer = cache.slice(0, 960)
         cache = cache.slice(960)
         const samples = new Int16Array(new Uint8Array(buffer).buffer)
@@ -28,7 +28,7 @@ class NodeWebRtcAudioStreamSource extends RTCAudioSource {
           samples
         })
       }
-      if (!streamEnd || cache.length > 0) {
+      if (!streamEnd || cache.length >= 960) {
         setTimeout(() => processData(), 10)
       }
     }
