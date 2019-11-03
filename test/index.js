@@ -30,4 +30,4 @@ setTimeout(() => {
   const testBuffer = fs.readFileSync('test.tiff')
   const tempBuffer = fs.readFileSync('temp.tiff')
   assert.ok(testBuffer.slice(0, tempBuffer.length).equals(tempBuffer))
-}, 500)
+}, 2000)

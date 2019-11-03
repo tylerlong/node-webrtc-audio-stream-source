@@ -3,7 +3,7 @@ import { nonstandard } from 'wrtc'
 const { RTCAudioSource } = nonstandard
 
 class NodeWebRtcAudioStreamSource extends RTCAudioSource {
-  addStream (readable, bitsPerSample, sampleRate, channelCount) {
+  addStream (readable, bitsPerSample = 16, sampleRate = 48000, channelCount = 1) {
     let cache = Buffer.alloc(0)
     let streamEnd = false
     readable.on('data', buffer => {
@@ -30,7 +30,7 @@ class NodeWebRtcAudioStreamSource extends RTCAudioSource {
         })
       }
       if (!streamEnd || cache.length >= byteLength) {
-        setTimeout(() => processData(), 0)
+        setTimeout(() => processData(), 10) // every 10 ms, required by node-webrtc audio
       }
     }
     processData()
