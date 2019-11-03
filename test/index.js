@@ -19,7 +19,7 @@ sink.ondata = data => {
 }
 
 const readStream = fs.createReadStream('test.tiff')
-rtcAudioStreamSource.addStream(readStream)
+rtcAudioStreamSource.addStream(readStream, 16, 48000, 1)
 
 setTimeout(() => {
   readStream.close()

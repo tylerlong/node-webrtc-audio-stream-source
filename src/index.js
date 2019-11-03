@@ -15,20 +15,21 @@ class NodeWebRtcAudioStreamSource extends RTCAudioSource {
     })
 
     const processData = () => {
-      if (cache.length >= 960 || streamEnd) {
-        const buffer = cache.slice(0, 960)
-        cache = cache.slice(960)
+      const byteLength = sampleRate * bitsPerSample / 8 / 100 * channelCount // node-webrtc audio by default every 10ms, it is 1/100 second
+      if (cache.length >= byteLength || streamEnd) {
+        const buffer = cache.slice(0, byteLength)
+        cache = cache.slice(byteLength)
         const samples = new Int16Array(new Uint8Array(buffer).buffer)
         this.onData({
-          bitsPerSample: 16,
-          sampleRate: 48000,
-          channelCount: 1,
+          bitsPerSample,
+          sampleRate,
+          channelCount,
           numberOfFrames: samples.length,
           type: 'data',
           samples
         })
       }
-      if (!streamEnd || cache.length >= 960) {
+      if (!streamEnd || cache.length >= byteLength) {
         setTimeout(() => processData(), 0)
       }
     }
