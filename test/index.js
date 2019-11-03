@@ -1,5 +1,6 @@
 import { nonstandard } from 'wrtc'
 import fs from 'fs'
+import assert from 'assert'
 
 import NodeWebRtcAudioStreamSource from '../src'
 
@@ -24,5 +25,9 @@ setTimeout(() => {
   readStream.close()
   track.stop()
   sink.stop()
-  console.log('done')
-}, 1000)
+  writeStream.close()
+
+  const testBuffer = fs.readFileSync('test.tiff')
+  const tempBuffer = fs.readFileSync('temp.tiff')
+  assert.ok(testBuffer.slice(0, tempBuffer.length).equals(tempBuffer))
+}, 500)
