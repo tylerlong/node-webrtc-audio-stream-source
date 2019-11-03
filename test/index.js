@@ -4,7 +4,7 @@ import assert from 'assert'
 
 import NodeWebRtcAudioStreamSource from '../src'
 
-const rtcAudioStreamSource = new NodeWebRtcAudioStreamSource()
+const rtcAudioStreamSource = new NodeWebRtcAudioStreamSource(fs.createReadStream('test.tiff'))
 
 const track = rtcAudioStreamSource.createTrack()
 const sink = new nonstandard.RTCAudioSink(track)
@@ -18,11 +18,11 @@ sink.ondata = data => {
   writeStream.write(Buffer.from(data.samples.buffer))
 }
 
-const readStream = fs.createReadStream('test.tiff')
-rtcAudioStreamSource.addStream(readStream, 16, 48000, 1)
+// const readStream = fs.createReadStream('test.tiff')
+// rtcAudioStreamSource.addStream(readStream, 16, 48000, 1)
 
 setTimeout(() => {
-  readStream.close()
+  // readStream.close()
   track.stop()
   sink.stop()
   writeStream.close()
