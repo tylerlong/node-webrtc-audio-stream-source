@@ -10,7 +10,7 @@ This library gives you a [RTCAudioSource](https://github.com/node-webrtc/node-we
 ### macOS
 
 ```
-say -o test.tiff --data-format=BEI16@48000  hello world
+say -o test.wav --data-format=LEI16@48000  hello world
 ```
 
 
