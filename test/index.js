@@ -4,12 +4,12 @@ import assert from 'assert'
 
 import NodeWebRtcAudioStreamSource from '../src'
 
-const rtcAudioStreamSource = new NodeWebRtcAudioStreamSource(fs.createReadStream('test.tiff'))
+const rtcAudioStreamSource = new NodeWebRtcAudioStreamSource()
 
 const track = rtcAudioStreamSource.createTrack()
 const sink = new nonstandard.RTCAudioSink(track)
 
-const audioFilePath = 'temp.tiff'
+const audioFilePath = 'temp.wav'
 if (fs.existsSync(audioFilePath)) {
   fs.unlinkSync(audioFilePath)
 }
@@ -18,16 +18,16 @@ sink.ondata = data => {
   writeStream.write(Buffer.from(data.samples.buffer))
 }
 
-// const readStream = fs.createReadStream('test.tiff')
-// rtcAudioStreamSource.addStream(readStream, 16, 48000, 1)
+const readStream = fs.createReadStream('test.wav')
+rtcAudioStreamSource.addStream(readStream, 16, 48000, 1)
 
 setTimeout(() => {
-  // readStream.close()
+  readStream.close()
   track.stop()
   sink.stop()
   writeStream.close()
 
-  const testBuffer = fs.readFileSync('test.tiff')
-  const tempBuffer = fs.readFileSync('temp.tiff')
+  const testBuffer = fs.readFileSync('test.wav')
+  const tempBuffer = fs.readFileSync('temp.wav')
   assert.ok(testBuffer.slice(0, tempBuffer.length).equals(tempBuffer))
 }, 2000)

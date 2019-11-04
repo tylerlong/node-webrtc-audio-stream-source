@@ -3,25 +3,6 @@ import { nonstandard } from 'wrtc'
 const { RTCAudioSource } = nonstandard
 
 class NodeWebRtcAudioStreamSource extends RTCAudioSource {
-  constructor (readable) {
-    super()
-    this.readable = readable
-  }
-
-  createTrack () {
-    const track = super.createTrack()
-    this.start()
-    return track
-  }
-
-  start () {
-    this.addStream(this.readable)
-  }
-
-  stop () {
-
-  }
-
   addStream (readable, bitsPerSample = 16, sampleRate = 48000, channelCount = 1) {
     let cache = Buffer.alloc(0)
     let streamEnd = false
