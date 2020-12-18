@@ -1,21 +1,18 @@
 {
   "name": "node-webrtc-audio-stream-source",
   "license": "MIT",
-  "version": "0.2.6",
-  "main": "dist/index.js",
+  "version": "0.3.0",
+  "main": "dist/src/index.js",
   "scripts": {
-    "test": "node -r @babel/register test/index.js && play -b 16 -r 48000 -e signed -c 1 temp.wav",
-    "release": "babel src --out-dir dist --source-maps",
-    "prepublishOnly": "yarn release"
+    "test": "ts-node test/index.ts && play -b 16 -r 48000 -e signed -c 1 temp.wav",
+    "prepublishOnly": "tsc"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/register": "^7.12.10",
+    "@types/node": "^14.11.2",
     "core-js": "^3.8.1",
+    "gts": "^3.0.3",
     "husky": "^4.3.6",
-    "standard": "^16.0.3",
+    "typescript": "^4.0.3",
     "wrtc": "^0.4.6",
     "yarn-upgrade-all": "^0.5.4"
   },
